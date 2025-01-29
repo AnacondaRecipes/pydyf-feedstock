@@ -1,5 +1,5 @@
 {% set name = "pydyf" %}
-{% set version = "0.5.0" %}
+{% set version = "0.10.0" %}
 
 
 package:
@@ -8,37 +8,54 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 51e751ae1504037c1fc1f4815119137b011802cd5f6c3539db066c455b14a7e1
+  sha256: 357194593efaf61d7b48ab97c3d59722114934967c3df3d7878ca6dd25b04c30
 
 build:
+  skip: True  # [py<38]
   number: 0
-  noarch: python
-  script: {{ PYTHON }} -m pip install . -vv
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   host:
     - flit-core >=3.2,<4
     - pip
-    - python >=3.7
+    - python
   run:
-    - python >=3.7
+    - python
 
+# Exclude most tests since they require ghostscript
+{% set tests_to_execute = [
+  'test_no_identifier', 
+  'test_default_identifier', 
+  'test_custom_identifier',
+  'test_version',
+  'test_string_encoding'
+  ] %}
 test:
+  source_files:
+    - tests
   imports:
     - pydyf
   commands:
     - pip check
+    - pytest -v -k '({{ tests_to_execute|join(' or ') }})'
   requires:
     - pip
+    - pytest
+    - ruff
+    - pillow
 
 about:
   home: https://www.courtbouillon.org/pydyf
   summary: A low-level PDF generator.
+  description: |
+    pydyf is a low-level PDF generator written in Python 
+    and based on PDF specification 1.7.
   license: BSD-3-Clause
-  license_file:
-    - LICENSE
+  license_family: BSD
+  license_file: LICENSE
   dev_url: https://github.com/CourtBouillon/pydyf
-  doc_url: https://doc.courtbouillon.org/pydyf/
+  doc_url: https://doc.courtbouillon.org/pydyf
 
 extra:
   recipe-maintainers:
