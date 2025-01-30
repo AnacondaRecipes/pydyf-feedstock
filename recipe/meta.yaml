@@ -38,7 +38,10 @@ test:
     - pydyf
   commands:
     - pip check
-    - pytest -v -k '({{ tests_to_execute|join(' or ') }})' --collect-only --debug & tail -f pytestdebug.log
+    - pytest -v -k '({{ tests_to_execute|join(' or ') }})'
+    - ls -la tests                                          # [win]
+    - cd tests                                              # [win]
+    - pytest -v -k '({{ tests_to_execute|join(' or ') }})'  # [win]
   requires:
     - pip
     - pytest
