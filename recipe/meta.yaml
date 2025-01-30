@@ -37,7 +37,6 @@ test:
   imports:
     - pydyf
   commands:
-    - echo on                                               # [win]
     - pip check
     - pytest -vv -k "({{ tests_to_execute|join(' or ') }})"
   requires:
