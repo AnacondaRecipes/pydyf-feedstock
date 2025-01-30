@@ -39,8 +39,7 @@ test:
   commands:
     - echo on                                               # [win]
     - pip check
-    - pytest -v -k '({{ tests_to_execute|join(' or ') }})'  # [not win]
-    - pytest -vv                                            # [win]
+    - pytest -vv -k "({{ tests_to_execute|join(' or ') }})"
   requires:
     - pip
     - pytest
