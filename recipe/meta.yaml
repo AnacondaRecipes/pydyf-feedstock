@@ -37,13 +37,10 @@ test:
   imports:
     - pydyf
   commands:
-    - echo on                                                             # [win]
-    - pip check                                                           # [not win]
-    - pytest -v -k '({{ tests_to_execute|join(' or ') }})'                # [not win]
-    - ls -la                                                              # [win]
-    - ls -la tests                                                        # [win]
-    - cd tests                                                            # [win]
-    - pytest test_pydyf.py -vv                                            # [win]
+    - echo on                                               # [win]
+    - pip check
+    - pytest -v -k '({{ tests_to_execute|join(' or ') }})'  # [not win]
+    - pytest -vv                                            # [win]
   requires:
     - pip
     - pytest
