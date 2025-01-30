@@ -43,7 +43,7 @@ test:
     - ls -la                                                              # [win]
     - ls -la tests                                                        # [win]
     - cd tests                                                            # [win]
-    - pytest test_pydyf.py -v -k '({{ tests_to_execute|join(' or ') }})'  # [win]
+    - pytest test_pydyf.py -vv                                            # [win]
   requires:
     - pip
     - pytest
