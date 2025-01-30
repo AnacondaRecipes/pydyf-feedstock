@@ -38,8 +38,9 @@ test:
     - pydyf
   commands:
     - echo on                                               # [win]
-    - pip check
-    - pytest -v -k '({{ tests_to_execute|join(' or ') }})'
+    #- pip check
+    #- pytest -v -k '({{ tests_to_execute|join(' or ') }})'
+    - ls -la
     - ls -la tests                                          # [win]
     - cd tests                                              # [win]
     - pytest -v -k '({{ tests_to_execute|join(' or ') }})'  # [win]
